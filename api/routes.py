@@ -1,8 +1,6 @@
 from api import app, ca
-from Crypto.PublicKey import RSA
 from flask import request, send_file
 from ownca import utils
-from ssl import DER_cert_to_PEM_cert
 
 
 @app.route("/ca/root-trust", methods=["GET"])
@@ -45,9 +43,9 @@ def hostCertificate():
                                           oids=certOids,
                                           public_exponent=certPublicExponent,
                                           key_size=certKeySize)
-        key = RSA.importKey(serverCert.key_bytes).exportKey("PEM").decode() + '\n'
-        cert = DER_cert_to_PEM_cert(serverCert.cert_bytes)
-        rootCert = DER_cert_to_PEM_cert(ca.cert_bytes)
+        key = serverCert.key_bytes.decode()
+        cert = serverCert.cert_bytes.decode()
+        rootCert = ca.cert_bytes.decode()
         return {"key": key, "cert": cert, "chain": rootCert}
 
 # TODO: implement PEM certificate revocation
