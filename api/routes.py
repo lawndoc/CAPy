@@ -1,15 +1,13 @@
 from api import app, ca
-from flask import request, send_file
+from flask import request
 from ownca import utils
 
 
 @app.route("/ca/root-trust", methods=["GET"])
 def rootTrust():
     """ Return root CA certificate for setting up trust """
-    cert = DER_cert_to_PEM_cert(ca.cert_bytes)
-    with open("/tmp/rootCert.pem", "w+") as rootCert:
-        rootCert.write(cert)
-    return send_file("/tmp/rootCert.pem", attachment_filename="rootCert.pem")
+    cert = ca.cert_bytes.decode()
+    return {"root": cert}
 
 
 @app.route("/ca/host-certificate", methods=["GET"])
