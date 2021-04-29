@@ -45,7 +45,7 @@ def hostCertificate():
                                           oids=certOids,
                                           public_exponent=certPublicExponent,
                                           key_size=certKeySize)
-        key = RSA.importKey(serverCert.key_bytes).exportKey("PEM")
+        key = RSA.importKey(serverCert.key_bytes).exportKey("PEM").decode() + '\n'
         cert = DER_cert_to_PEM_cert(serverCert.cert_bytes)
         rootCert = DER_cert_to_PEM_cert(ca.cert_bytes)
         return {"key": key, "cert": cert, "chain": rootCert}
