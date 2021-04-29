@@ -46,6 +46,6 @@ def hostCertificate():
         key = serverCert.key_bytes.decode()
         cert = serverCert.cert_bytes.decode()
         rootCert = ca.cert_bytes.decode()
-        return {"key": key, "cert": cert, "chain": rootCert}
+        return {"key": key, "cert": cert, "root": rootCert}
 
 # TODO: implement PEM certificate revocation
