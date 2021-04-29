@@ -7,4 +7,3 @@ Basic API calls provided:
 
 - GET root CA certificate for establishing trust
 - GET new host certificate signed by CA
-- Get new client certificate signed by CA
