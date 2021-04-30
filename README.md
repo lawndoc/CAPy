@@ -1,5 +1,5 @@
 # CAPy
-A Certificate Authority microservice that generates self-signed CA, host, and client certificates through an API interface
+A Certificate Authority microservice that can generate server/client certificates through an API interface
 
 It currently does not provide any kind of authentication mechanism, so NAC and container network configuration are extremely important in deploying this service.
 
