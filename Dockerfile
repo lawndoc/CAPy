@@ -14,9 +14,9 @@ ENV CA_NAME=$CA_NAME
 COPY ./* /opt/CAPy/
 RUN pip install -r /opt/CAPy/requirements.txt
 
-# for documentation purposes --> still need to specify at runtime
-EXPOSE 80:5000
-VOLUME CAPy:/opt/CAPy/CA
+# mostly for documentation purposes --> should still specify at runtime
+EXPOSE 5000
+VOLUME /opt/CAPy/CA
 
 # start app
 ENTRYPOINT ["python", "/opt/CAPy/CAPy.py"]
