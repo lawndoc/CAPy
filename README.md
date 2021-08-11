@@ -10,5 +10,6 @@ Basic API calls provided:
 
 TODO / Not yet implemented:
 
+- POST `/ca/csr` -> generic certificate signing request (optionally supply own public key)
 - POST `/ca/revoke-certificate` -> revoke certificate
 - GET `/ca/revoke-certificate` -> check if cert has been revoked
