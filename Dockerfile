@@ -11,7 +11,7 @@ ENV CA_CERT_DIR=$CA_CERT_DIR
 ENV CA_NAME=$CA_NAME
 
 # copy code and install dependencies
-COPY ./* /opt/CAPy/
+COPY . /opt/CAPy
 RUN pip install -r /opt/CAPy/requirements.txt
 
 # mostly for documentation purposes --> should still specify at runtime
@@ -19,4 +19,5 @@ EXPOSE 5000
 VOLUME /opt/CAPy/CA
 
 # start app
+WORKDIR "/opt/CAPy"
 ENTRYPOINT ["python", "/opt/CAPy/CAPy.py"]
