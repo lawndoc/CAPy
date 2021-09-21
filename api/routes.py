@@ -22,6 +22,8 @@ def hostCertificate():
             return {"error": "hostname not found in the request"}
         except ValueError:
             return {"error": f"hostname in the request was not standard FQDN --> '{certHostname}'"}
+        except TypeError:
+            return {"error": "please ensure Content-Type is application/json"}
         certMaxDays = request.json.get("maxDays", 825)
         certCommonName = request.json.get("CN", "")
         certDnsNames = request.json.get("DNS", [])
@@ -32,6 +34,10 @@ def hostCertificate():
                     "organization_name": request.json.get("O", ""),
                     "organization_unit_name": request.json.get("OU", ""),
                     "email_address": request.json.get("E", "")}
+        # remove blank OIDs to make ownca happy
+        for oid in list(certOids.keys()):
+            if not certOids[oid]:
+                del certOids[oid]
         certPublicExponent = request.json.get("publicExponent", 65537)
         certKeySize = request.json.get("keySize", 2048)
         serverCert = ca.issue_certificate(hostname=certHostname,
