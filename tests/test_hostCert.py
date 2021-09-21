@@ -1,4 +1,5 @@
 from api import app
+import json
 import pytest
 import requests
 
@@ -15,7 +16,8 @@ def testRootCert(client):
 
 def testHostCert(client):
     response = client.get("/ca/host-certificate",
-                          data={"host": "testhost.local"})
+                          headers={"Content-Type": "application/json"},
+                          data=json.dumps({"hostname": "testhost.local"}))
     assert response.status_code == 200
     assert "key" in response.json
     assert "cert" in response.json
