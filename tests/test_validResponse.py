@@ -6,6 +6,7 @@ import pytest
 def client():
     app.testing = True
     yield app.test_client()
+    
 
 def testRootCert(client):
     response = client.get("/ca/root-trust")
