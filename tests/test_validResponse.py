@@ -6,13 +6,12 @@ import pytest
 def client():
     app.testing = True
     yield app.test_client()
-    
+
 
 def testRootCert(client):
     response = client.get("/ca/root-trust")
     assert response.status_code == 200
     assert "root" in response.json
-
 
 def testHostCert(client):
     response = client.get("/ca/host-certificate",
