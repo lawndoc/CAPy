@@ -47,8 +47,9 @@ COPY . .
 RUN chown -R myuser:myuser ${CA_CERT_DIR}/..
 USER myuser
 
-# expose port and mount CA volume
+# expose port
 EXPOSE 5000
+# mark CA store as volume (still need to specify host mountpoint at runtime)
 VOLUME ${CA_CERT_DIR}
 
 # make sure all messages always reach console
@@ -60,4 +61,4 @@ ENV PATH="/home/myuser/venv/bin:$PATH"
 
 # /dev/shm is mapped to shared memory and should be used for gunicorn heartbeat
 # this will improve performance and avoid random freezes
-CMD ["gunicorn","-b", "0.0.0.0:5000", "-w", "4", "-k", "gevent", "--worker-tmp-dir", "/dev/shm", "api:app"]
+CMD ["./run.sh"]
