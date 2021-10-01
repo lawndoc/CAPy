@@ -40,15 +40,18 @@ RUN apt-get update && apt-get install --no-install-recommends -y python3.9 pytho
 RUN useradd --create-home myuser
 COPY --from=builder-image /home/myuser/venv /home/myuser/venv
 
-# copy code over
-USER myuser
+# create directory for runtime and switch to user
 RUN mkdir -p ${CA_CERT_DIR}
+RUN chown -r myuser:myuser ${CA_CERT_DIR}/..
+USER myuser
+
+# copy code over
 WORKDIR ${CA_CERT_DIR}/..
 COPY . .
 
 # expose port and mount CA volume
 EXPOSE 5000
-VOLUME /opt/CAPy/CA
+VOLUME ${CA_CERT_DIR}
 
 # make sure all messages always reach console
 ENV PYTHONUNBUFFERED=1
