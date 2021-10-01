@@ -42,7 +42,7 @@ COPY --from=builder-image /home/myuser/venv /home/myuser/venv
 
 # copy code over
 USER myuser
-RUN mkdir ${CA_CERT_DIR}
+RUN mkdir -p ${CA_CERT_DIR}
 WORKDIR ${CA_CERT_DIR}/..
 COPY . .
 
