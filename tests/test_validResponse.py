@@ -8,12 +8,12 @@ def client():
     yield app.test_client()
 
 
-def testRootCert(client):
+def testRootTrustResponse(client):
     response = client.get("/ca/root-trust")
     assert response.status_code == 200
     assert "root" in response.json
 
-def testHostCert(client):
+def testHostCertResponse(client):
     response = client.get("/ca/host-certificate",
                           headers={"Content-Type": "application/json"},
                           data=json.dumps({"hostname": "testhost.local"}))
