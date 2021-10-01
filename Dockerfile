@@ -42,12 +42,10 @@ COPY --from=builder-image /home/myuser/venv /home/myuser/venv
 
 # create directory for runtime and switch to user
 RUN mkdir -p ${CA_CERT_DIR}
-RUN chown -R myuser:myuser ${CA_CERT_DIR}/..
-USER myuser
-
-# copy code over
 WORKDIR ${CA_CERT_DIR}/..
 COPY . .
+RUN chown -R myuser:myuser ${CA_CERT_DIR}/..
+USER myuser
 
 # expose port and mount CA volume
 EXPOSE 5000
