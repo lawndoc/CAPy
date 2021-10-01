@@ -42,7 +42,7 @@ COPY --from=builder-image /home/myuser/venv /home/myuser/venv
 
 # create directory for runtime and switch to user
 RUN mkdir -p ${CA_CERT_DIR}
-RUN chown -r myuser:myuser ${CA_CERT_DIR}/..
+RUN chown -R myuser:myuser ${CA_CERT_DIR}/..
 USER myuser
 
 # copy code over
