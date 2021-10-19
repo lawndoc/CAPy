@@ -1,12 +1,5 @@
-from api import app
 import json
 from OpenSSL import crypto
-import pytest
-
-@pytest.fixture
-def client():
-    app.testing = True
-    yield app.test_client()
 
 def testValidHostCert(client):
     # request new host certificate
