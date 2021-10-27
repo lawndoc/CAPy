@@ -1,4 +1,4 @@
-name: "Build & Unit Tests"
+name: "CAPy Build/Tests"
 
 on:
   push:
