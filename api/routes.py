@@ -64,12 +64,12 @@ def newHostCertificate():
     certPublicExponent = request.json.get("publicExponent", 65537)
     certKeySize = request.json.get("keySize", 2048)
     serverCert = ca.issue_certificate(hostname=certHostname,
-                                        maximum_days=certMaxDays,
-                                        common_name=certCommonName,
-                                        dns_names=certDnsNames,
-                                        oids=certOids,
-                                        public_exponent=certPublicExponent,
-                                        key_size=certKeySize)
+                                      maximum_days=certMaxDays,
+                                      common_name=certCommonName,
+                                      dns_names=certDnsNames,
+                                      oids=certOids,
+                                      public_exponent=certPublicExponent,
+                                      key_size=certKeySize)
     key = serverCert.key_bytes.decode()
     cert = serverCert.cert_bytes.decode()
     rootCert = ca.cert_bytes.decode()
