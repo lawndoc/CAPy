@@ -26,13 +26,13 @@ FROM ubuntu:20.04 AS runner-image
 ARG SECRET_KEY="super_secret_default_key"
 ARG CA_CERT_DIR="/opt/CAPy/CA"
 ARG CA_NAME="CAPy Root CA"
-ARG FRONTEND_FQDN="example.com"
+ARG PROXY_DOMAIN="example.com"
 
 # set environment variables
 ENV SECRET_KEY=$SECRET_KEY
 ENV CA_CERT_DIR=$CA_CERT_DIR
 ENV CA_NAME=$CA_NAME
-ENV FRONTEND_FQDN=$FRONTEND_FQDN
+ENV PROXY_DOMAIN=$PROXY_DOMAIN
 
 # install python
 RUN apt-get update && apt-get install --no-install-recommends -y python3.9 python3-venv && \

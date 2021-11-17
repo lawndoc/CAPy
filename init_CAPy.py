@@ -7,15 +7,15 @@ ca = CertificateAuthority(ca_storage=Config.CA_CERT_DIR, common_name=Config.CA_N
 
 # generate intial host certificate for the frontend
 parser = argparse.ArgumentParser()
-parser.add_argument("-f", "--frontend",
-                    help="fqdn of the frontend to generate a certificate",
+parser.add_argument("-p", "--proxy",
+                    help="domain of the proxy to generate a certificate",
                     default="example.com",
                     type=str)
 args = parser.parse_args()
-ca.issue_certificate(hostname=args.frontend,
+ca.issue_certificate(hostname="proxy",
                      maximum_days=825,
-                     common_name=args.frontend,
-                     dns_names=[],
+                     common_name="proxy",
+                     dns_names=["*."+args.proxy, args.proxy],
                      oids={},
                      public_exponent=65537,
                      key_size=2048)
