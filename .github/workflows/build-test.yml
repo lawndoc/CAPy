@@ -12,8 +12,6 @@ env:
   IMAGE_NAME: capy
 
 jobs:
-  # Run tests.
-  # See also https://docs.docker.com/docker-hub/builds/automated-testing/
   test:
     runs-on: ubuntu-latest
 
