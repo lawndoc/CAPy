@@ -1,7 +1,8 @@
 # CAPy
 A Certificate Authority microservice that can generate server/client certificates through an API interface
 
-![example workflow](https://github.com/lawndoc/CAPy/actions/workflows/build-test.yml/badge.svg)
+![Build/Tests](https://github.com/lawndoc/CAPy/actions/workflows/build-test.yml/badge.svg)
+[![Codecov](https://codecov.io/gh/lawndoc/CAPy/branch/main/graph/badge.svg)](https://codecov.io/gh/lawndoc/CAPy)
 
 It currently does not provide any kind of authentication mechanism, so NAC and container network configuration are extremely important in deploying this service.
 
