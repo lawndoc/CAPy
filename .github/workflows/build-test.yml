@@ -29,6 +29,9 @@ jobs:
       - name: Install dependencies
         run: python -m pip install -r requirements.txt
 
+      - name: Create CA directory
+        run: mkdir -p /opt/CAPy/CA
+
       - name: Run tests
         run: pytest --cov --cov-report=xml
 
