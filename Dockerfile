@@ -1,6 +1,6 @@
 ### Builder image
 # using ubuntu LTS version
-FROM ubuntu:20.04 AS builder-image
+FROM lsiobase/ubuntu:jammy AS builder-image
 
 # avoid stuck build due to user prompt
 ARG DEBIAN_FRONTEND=noninteractive
@@ -20,7 +20,7 @@ RUN pip3 install --no-cache-dir wheel
 RUN pip3 install --no-cache-dir -r requirements.txt
 
 ### Runner image
-FROM ubuntu:20.04 AS runner-image
+FROM lsiobase/ubuntu:jammy AS runner-image
 
 # DEFAULT ARGS that can be changed
 ARG SECRET_KEY="super_secret_default_key"
