@@ -1,6 +1,6 @@
 ### Builder image
 # using ubuntu LTS version
-FROM lsiobase/ubuntu:jammy AS builder-image
+FROM lsiobase/ubuntu:focal AS builder-image
 
 # avoid stuck build due to user prompt
 ARG DEBIAN_FRONTEND=noninteractive
@@ -20,7 +20,7 @@ RUN pip3 install --no-cache-dir wheel
 RUN pip3 install --no-cache-dir -r requirements.txt
 
 ### Runner image
-FROM lsiobase/ubuntu:jammy AS runner-image
+FROM lsiobase/ubuntu:focal AS runner-image
 
 # DEFAULT ARGS that can be changed
 ARG SECRET_KEY="super_secret_default_key"
@@ -46,8 +46,7 @@ COPY --from=builder-image /home/myuser/venv /home/myuser/venv
 RUN mkdir -p ${CA_CERT_DIR}
 WORKDIR ${CA_CERT_DIR}/..
 COPY . .
-RUN chown -R myuser:myuser ${CA_CERT_DIR}/..
-USER myuser
+RUN echo chown -R abc:abc ${CA_CERT_DIR}/.. >> /etc/cont-init.d/10-adduser
 
 # expose port
 EXPOSE 5000
