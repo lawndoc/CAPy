@@ -46,6 +46,7 @@ COPY --from=builder-image /home/abc/venv /home/abc/venv
 RUN mkdir -p ${CA_CERT_DIR}
 WORKDIR ${CA_CERT_DIR}/..
 COPY . .
+RUN chmod +x ./run.sh
 
 # expose port
 EXPOSE 5000
@@ -62,4 +63,4 @@ ENV PATH="/home/abc/venv/bin:$PATH"
 
 # /dev/shm is mapped to shared memory and should be used for gunicorn heartbeat
 # this will improve performance and avoid random freezes
-CMD ["su", "-c", "'sh run.sh'", "abc"]
+CMD ["su", "-c", "'./run.sh'", "abc"]
