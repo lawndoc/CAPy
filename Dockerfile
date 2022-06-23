@@ -11,8 +11,8 @@ RUN apt-get update && apt-get install --no-install-recommends -y python3.9 pytho
 
 # create and activate virtual environment
 # using final folder name to avoid path issues with packages
-RUN python3.9 -m venv /home/myuser/venv
-ENV PATH="/home/myuser/venv/bin:$PATH"
+RUN python3.9 -m venv /home/abc/venv
+ENV PATH="/home/abc/venv/bin:$PATH"
 
 # install requirements
 COPY requirements.txt .
@@ -38,28 +38,28 @@ ENV PROXY_DOMAIN=$PROXY_DOMAIN
 RUN apt-get update && apt-get install --no-install-recommends -y python3.9 python3-venv && \
 	apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# create unprivileged user and virtual environment
-RUN useradd --create-home myuser
-COPY --from=builder-image /home/myuser/venv /home/myuser/venv
+# use unprivileged user and virtual environment
+RUN chsh -s /bin/bash abc
+COPY --from=builder-image /home/abc/venv /home/abc/venv
 
 # create directory for runtime and switch to user
 RUN mkdir -p ${CA_CERT_DIR}
 WORKDIR ${CA_CERT_DIR}/..
 COPY . .
-RUN echo chown -R abc:abc ${CA_CERT_DIR}/.. >> /etc/cont-init.d/10-adduser
 
 # expose port
 EXPOSE 5000
-# mark CA store as volume (still need to specify host mountpoint at runtime)
+# mark CA store as volume and set permissions
 VOLUME ${CA_CERT_DIR}
+RUN echo chown -R abc:abc ${CA_CERT_DIR}/.. >> /etc/cont-init.d/10-adduser
 
 # make sure all messages always reach console
 ENV PYTHONUNBUFFERED=1
 
 # activate virtual environment
-ENV VIRTUAL_ENV=/home/myuser/venv
-ENV PATH="/home/myuser/venv/bin:$PATH"
+ENV VIRTUAL_ENV=/home/abc/venv
+ENV PATH="/home/abc/venv/bin:$PATH"
 
 # /dev/shm is mapped to shared memory and should be used for gunicorn heartbeat
 # this will improve performance and avoid random freezes
-CMD ["sh","run.sh"]
+CMD ["su", "-c", "'sh run.sh'", "abc"]
