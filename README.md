@@ -42,7 +42,7 @@ version: "3.9"
 services:
   capy:
     container_name: "capy"
-    image: ghcr.io/lawndoc/capy:latest
+    image: ghcr.io/lawndoc/capy:main
     volumes:
       - ./volumes/capy:/opt/CAPy/CA     # make sure this matches CA_CERT_DIR
     networks:
