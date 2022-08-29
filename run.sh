@@ -1,8 +1,4 @@
-#!/bin/sh
-
-# add virtualenv to PATH
-export VIRTUAL_ENV=/home/abc/venv
-export PATH="/home/abc/venv/bin:$PATH"
+#!/usr/bin/with-contenv bash
 
 # initialize CA files before multithreading
 python3.9 init_CAPy.py --proxy ${PROXY_DOMAIN}
